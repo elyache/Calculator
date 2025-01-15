@@ -5,81 +5,91 @@ using static Calculator.Program;
 namespace Calculator
 {
     internal class Program
-{
-    static void Main(string[] args)
     {
-        Console.WriteLine("Enter first number: ");
-        int num1 = Convert.ToInt32(Console.ReadLine());
-
-        Console.WriteLine("Enter second number: ");
-        int num2 = Convert.ToInt32(Console.ReadLine());
-
-        Console.WriteLine("Enter operation: '+', '-', '*', '/'");
-        char choice = Convert.ToChar(Console.ReadLine());
-
-        switch (choice)
+        static void Main(string[] args)
         {
-            case '+':
-                Console.WriteLine(Addition.Execute(num1, num2));
-                break;
-            case '-':
-                Console.WriteLine(Subtraction.Execute(num1, num2));
-                break;
-            case '*':
-                Console.WriteLine(Multiplication.Execute(num1, num2));
-                break;
-            case '/':
-                if (num2 != 0)
-                {
-                    Console.WriteLine(Division.Execute(num1, num2));
-                }
-                else
-                {
-                    Console.WriteLine("Cannot divide by zero.");
-                }
-                break;
-            default:
-                Console.WriteLine("Invalid operation.");
-                break;
+            Console.WriteLine("Enter first number: ");
+            int num1 = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter second number: ");
+            int num2 = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter operation: '+', '-', '*', '/'");
+            char choice = Convert.ToChar(Console.ReadLine());
+
+            Addition addition = new Addition();
+            Subtraction subtraction = new Subtraction();
+            Division division = new Division();
+            Multiplication multiplication = new Multiplication();
+
+            switch (choice)
+            {
+                case '+':
+                    Console.WriteLine(addition.Execute(num1, num2));
+                    break;
+                case '-':
+                    Console.WriteLine(subtraction.Execute(num1, num2));
+                    break;
+                case '*':
+                    Console.WriteLine(multiplication.Execute(num1, num2));
+                    break;
+                case '/':
+                    if (num2 != 0)
+                    {
+                        Console.WriteLine(division.Execute(num1, num2));
+                    }
+                    else
+                    {
+                        Console.WriteLine("Cannot divide by zero.");
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Invalid operation.");
+                    break;
+            }
         }
     }
-}
 
-public abstract class Operation
-{
-    public abstract static int Execute(int num1, int num2);
-}
-
-public class Addition : Operation
-{
-    public static int Execute(int num1, int num2)
+    public abstract class Operation
     {
-        return num1 + num2;
+        public abstract int Execute(int num1, int num2);
     }
-}
 
-public class Subtraction : Operation
-{
-    public static int Execute(int num1, int num2)
+    public class Addition : Operation
     {
-        return num1 - num2;
+        public override int Execute(int num1, int num2)
+        {
+            return num1 + num2;
+        }
     }
-}
 
-public class Multiplication : Operation
-{
-    public static int Execute(int num1, int num2)
+    public class Subtraction : Operation
     {
-        return num1 * num2;
-    }
-}
 
-public class Division : Operation
-{
-    public static int Execute(int num1, int num2)
-    {
-        return num1 / num2;
+
+        public override int Execute(int num1, int num2)
+        {
+            return num1 - num2;
+        }
     }
-}
+
+    public class Multiplication : Operation
+    {
+
+
+        public override int Execute(int num1, int num2)
+        {
+            return num1 * num2;
+        }
+    }
+
+    public class Division : Operation
+    {
+
+        public override int Execute(int num1, int num2)
+        {
+            return num1 / num2;
+        }
+    }
 }
 
